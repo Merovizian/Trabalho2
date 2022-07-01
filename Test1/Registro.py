@@ -67,7 +67,7 @@ else:
     print(f"Arquivo {receptor} já existente")
 
 #Verifica se existe arquivo na conta do Receptor, se tiver ele abre, se não tiver, ele cria.
-if arquivoExiste(receptor,emissor) == 0:
+if arquivoExiste(emissor,receptor) == 0:
     b = open(f'./{receptor}/{emissor}', 'wt+')
     print(f"Arquivo {emissor} criado com sucesso!")
 else:
