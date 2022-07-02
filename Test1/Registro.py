@@ -3,24 +3,8 @@ from datetime import date, datetime
 from pathlib import Path
 import os
 
-'''#Emissor é quem tem a conta no Materic
-emissor = input("Quem é o usúario do Materic: ")
-
-#O nome do receptor(receptor de texto) é o nome do seu contato
-receptor = input("Para quem vai mandar as mensagens: ")
-
-#Cria a pasta do usuario, caso a pasta não exista
-Path(f'./{emissor}').mkdir(exist_ok=True)
-
-dia = input("Que dia é hoje: ")
-
-data_atual = str(date.today())
-time_atual = time()
-texto = list()
-contador = 0
-horario = datetime.now().strftime("%H:%M:%S")'''
-
 def exibirHistorico(emissor, receptor):
+    '''Classe que exibe o historico do emissor e do receptor'''
     arquivotexto = open(f'./{emissor}/{receptor}', 'r')
     texto = arquivotexto.read().split("\n")
     for line in texto:
@@ -150,8 +134,8 @@ def login():
     emissor = input("Informe o nome do usuario: ")
     usuario(emissor)
 
-
 def usuario(emissor):
+    ''' MENU DO USUARIO'''
     while True:
         os.system('cls')
         print(f"\033[;1m{'MATERIC - TROCA DE MENSAGENS':*^70}\033[m")
@@ -170,10 +154,6 @@ def usuario(emissor):
             receptor = input("Historico de qual contato: ")
             exibirHistorico(emissor, receptor)
             input("Aperte Enter para Sair...")
-
-
-
-
 
 def cadastro():
     '''Cria um menu de interação'''
