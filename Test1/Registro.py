@@ -3,9 +3,19 @@ from datetime import date, datetime
 from pathlib import Path
 import os
 
-def exibirHistorico(emissor, receptor):
+def exibirHistorico(emissor):
     '''Classe que exibe o historico do emissor e do receptor'''
-    arquivotexto = open(f'./{emissor}/{receptor}', 'r')
+    lista = os.listdir(f'./Eric')
+    print("Contatos com historicos salvos na nuvem: ")
+    for a in lista:
+        print(a)
+    receptor = input("Informe o contato que queira mostar o historico: ")
+    while receptor not in lista:
+        for a in lista:
+            print(a)
+        receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
+
+    arquivotexto = open(f'./Eric/{receptor}', 'r')
     texto = arquivotexto.read().split("\n")
     for line in texto:
         print(line)
@@ -13,7 +23,8 @@ def exibirHistorico(emissor, receptor):
 def arquivoExiste(receptor,emissor):
     '''
     Verifica se um receptor já existe, se não o cria.
-    :param nome: receptor
+    :param receptor: receptor
+    :param receptor: emissor
     :return:1 - Se o receptor já existe e 0 - se não existe
     '''
     try:
@@ -23,6 +34,21 @@ def arquivoExiste(receptor,emissor):
         return 0
     else:
         return 1
+
+def usuarioRegistrado(emissor):
+    '''
+    Verifica se o usuario já foi registrado, isso é feito utilizando verificando se tem alguma pasta com o nome
+    :param emissor: é o usuário que será verificado.
+    :return:0 Se o usuario já tem pasta
+    :return: -1 Se o usuário não possui pasta.
+    '''
+    import os
+    lista = os.listdir(f'./')
+    if emissor in lista:
+        return 0
+    else:
+        return -1
+
 
 def historico(receptor,emissor,data):
     '''Verifica se há um historico no sistema do receptor, se houve, as mensagens do dia de hoje.
@@ -52,11 +78,6 @@ def registro(emissor, receptor, mensagem=''):
     :param receptor: é quem vai receber as mensagens
     :param mensagem: é a mensagem que o emissor irá trocar com o receptor
     :return:Até o momento, não retorna nada.'''
-
-    # Cria a pasta do usuario, caso a pasta não exista
-    Path(f'./{emissor}').mkdir(exist_ok=True)
-    # Cria a pasta do usuario, caso a pasta não exista
-    Path(f'./{receptor}').mkdir(exist_ok=True)
 
 
 
@@ -120,22 +141,9 @@ def registro(emissor, receptor, mensagem=''):
             a.close()
             break
 
-def menu():
-    '''Cria um menu de interação'''
-    print(f"\033[;1m{'MATERIC - TROCA DE MENSAGENS':*^70}\033[m")
-    print("DIGITE A OPÇÃO DESEJADA")
-    print("1 - login")
-    print("2 - cadastro de nova conta")
-
-def login():
-    '''Cria um menu de interação'''
-    os.system('cls')
-    print(f"\033[;1m{'MATERIC - LOGIN'}\033[m")
-    emissor = input("Informe o nome do usuario: ")
-    usuario(emissor)
-
 def usuario(emissor):
     ''' MENU DO USUARIO'''
+    import os
     while True:
         os.system('cls')
         print(f"\033[;1m{'MATERIC - TROCA DE MENSAGENS':*^70}\033[m")
@@ -151,21 +159,32 @@ def usuario(emissor):
             receptor = input("Com quem deseja conversar: ")
             registro(emissor, receptor)
         if escolha == "2":
-            receptor = input("Historico de qual contato: ")
-            exibirHistorico(emissor, receptor)
+            exibirHistorico(emissor)
             input("Aperte Enter para Sair...")
 
 def cadastro():
     '''Cria um menu de interação'''
+    import os
+    os.system('cls')
     print(f"\033[;1m{'MATERIC - CADASTRAR NOVA CONTA'}\033[m")
+    emissor = input("Por favor informe o nome de usuário que deseja: ")
+    # Cria a pasta do usuario, caso a pasta não exista
+    Path(f'./{emissor}').mkdir(exist_ok=True)
+    print(f"Usuario {emissor} Registrado com sucesso. Faça o login novamente....")
+
+
 
 while True:
-    menu()
-    choise = input("Digite a opção desejada: ")
-    if (choise== "1"):
-        login()
-    elif (choise == "2"):
+    '''Cria um menu de interação'''
+    print(f"\033[;1m{' MATERIC - TROCA DE MENSAGENS ' :*^40}\033[m")
+    emissor = input("INFORME O NOME DE USUARIO: ")
+    if usuarioRegistrado(emissor) == 0:
+        usuario(emissor)
+    elif usuarioRegistrado(emissor) == -1:
         cadastro()
-    else:
-        choise = input("Opção inválida, por valor escolha a opção correta: ")
 
+
+
+
+
+''' CRIAR UMA SENHA. A SENHA PODE FICAR EM UM ARQUIVO DENTRO DA PASTA DO USUARIO COM O MESMO NOME'''
