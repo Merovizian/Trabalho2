@@ -1,19 +1,8 @@
-from time import time
 from datetime import date, datetime
 from pathlib import Path
-import os
 
 def exibirHistorico(emissor,receptor):
     '''Classe que exibe o historico do emissor e do receptor'''
-    #lista = os.listdir(f'./Eric')
-    #print("Contatos com historicos salvos na nuvem: ")
-    '''for a in lista:
-        print(a)'''
-    #receptor = input("Informe o contato que queira mostar o historico: ")
-    '''while receptor not in lista:
-        for a in lista:
-            print(a)'''
-        #receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
     try:
         arquivotexto = open(f'./{emissor}/{receptor}', 'r')
         texto = arquivotexto.read()
@@ -24,7 +13,6 @@ def exibirHistorico(emissor,receptor):
         return texto
     else:
         return texto
-
 
 def arquivoExiste(receptor,emissor):
     '''
@@ -54,7 +42,6 @@ def usuarioRegistrado(emissor):
         return 0
     else:
         return -1
-
 
 def historico(receptor,emissor,data):
     '''Verifica se há um historico no sistema do receptor, se houve, as mensagens do dia de hoje.
@@ -130,46 +117,6 @@ def registro(emissor, receptor, mensagem):
 
 def cadastro(emissor):
     import os
-    # Cria a pasta do usuario, caso a pasta não exista
     Path(f'./{emissor}').mkdir(exist_ok=True)
 
 
-
-'''
-def usuario(emissor):
-    MENU DO USUARIO
-    import os
-    while True:
-        print('\n' * 100)
-        print(f"\033[;1m{'MATERIC - TROCA DE MENSAGENS':*^70}\033[m")
-        print(f"BEM VINDO {emissor}")
-        print("DIGITE A OPÇÃO DESEJADA")
-        print("1 - Trocar mensagens: ")
-        print("2 - Exibir histórico: ")
-        print("0 - Sair da conta")
-        escolha = input("Digite a opção desejada: ")
-        if escolha == "0":
-            break
-        if escolha == "1":
-            receptor = input("Com quem deseja conversar: ")
-            registro(emissor, receptor)
-        if escolha == "2":
-            exibirHistorico(emissor)
-            input("Aperte Enter para Sair...")
-
-
-
-while True:
-    #Cria um menu de interação
-    print(f"\033[;1m{' MATERIC - TROCA DE MENSAGENS ' :*^40}\033[m")
-    emissor = input("INFORME O NOME DE USUARIO: ")
-    if usuarioRegistrado(emissor) == 0:
-        usuario(emissor)
-    elif usuarioRegistrado(emissor) == -1:
-        cadastro()
-
-
-
-
-
-CRIAR UMA SENHA. A SENHA PODE FICAR EM UM ARQUIVO DENTRO DA PASTA DO USUARIO COM O MESMO NOME'''
