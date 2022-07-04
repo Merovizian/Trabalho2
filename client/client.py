@@ -154,7 +154,7 @@ def envia_mensagens(user,ip_server):
 
 if __name__ == '__main__':
 
-    sys.argv[1]
+    ip_server = sys.argv[1]
 
     while True:
         action = input("Digite cadastrar ou login: ")
