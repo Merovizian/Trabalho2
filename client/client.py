@@ -7,6 +7,7 @@ import os
 import json
 
 
+
 def sign_up(ip_server):
 
     user = input("Seu nome de usuario: ")

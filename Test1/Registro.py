@@ -79,7 +79,8 @@ def registro(emissor, receptor, mensagem=''):
     :param mensagem: é a mensagem que o emissor irá trocar com o receptor
     :return:Até o momento, não retorna nada.'''
 
-
+    # Cria a pasta do usuario, caso a pasta não exista
+    Path(f'./{receptor}').mkdir(exist_ok=True)
 
     # Verifica se existe arquivo na conta do Emissor, se tiver ele abre, se não tiver, ele cria.
     if arquivoExiste(receptor, emissor) == 0:
@@ -145,7 +146,7 @@ def usuario(emissor):
     ''' MENU DO USUARIO'''
     import os
     while True:
-        os.system('cls')
+        print('\n' * 100)
         print(f"\033[;1m{'MATERIC - TROCA DE MENSAGENS':*^70}\033[m")
         print(f"BEM VINDO {emissor}")
         print("DIGITE A OPÇÃO DESEJADA")
@@ -162,20 +163,19 @@ def usuario(emissor):
             exibirHistorico(emissor)
             input("Aperte Enter para Sair...")
 
-def cadastro():
+def cadastro(emissor):
     '''Cria um menu de interação'''
     import os
-    os.system('cls')
+    print('\n' * 100)
     print(f"\033[;1m{'MATERIC - CADASTRAR NOVA CONTA'}\033[m")
-    emissor = input("Por favor informe o nome de usuário que deseja: ")
     # Cria a pasta do usuario, caso a pasta não exista
     Path(f'./{emissor}').mkdir(exist_ok=True)
     print(f"Usuario {emissor} Registrado com sucesso. Faça o login novamente....")
 
 
-
+'''
 while True:
-    '''Cria um menu de interação'''
+    #Cria um menu de interação
     print(f"\033[;1m{' MATERIC - TROCA DE MENSAGENS ' :*^40}\033[m")
     emissor = input("INFORME O NOME DE USUARIO: ")
     if usuarioRegistrado(emissor) == 0:
@@ -187,4 +187,4 @@ while True:
 
 
 
-''' CRIAR UMA SENHA. A SENHA PODE FICAR EM UM ARQUIVO DENTRO DA PASTA DO USUARIO COM O MESMO NOME'''
+CRIAR UMA SENHA. A SENHA PODE FICAR EM UM ARQUIVO DENTRO DA PASTA DO USUARIO COM O MESMO NOME'''

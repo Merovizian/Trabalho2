@@ -4,6 +4,7 @@ from threading import Thread
 import threading
 import time
 import json
+import Registro
 
 
 def sign_up():
@@ -45,6 +46,7 @@ def sign_up():
                         out.write(json.dumps(user_file))        
                     
                     print("Usuario {} se cadastrou".format(msg[0]))
+                    Registro.cadastro(msg[0])
                     con.send(pickle.dumps("Usuario cadastrado"))
                     con.close()
                     break
@@ -196,6 +198,8 @@ def broker():
                 tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 tcp_client.connect((connect_file[msg[1]],23672))
                 tcp_client.send(pickle.dumps([msg[0],msg[2]]))
+                Registro.registro(msg[0], msg[1], msg[2])
+
                 print("mensagem de {} para {} foi enviada".format(msg[0],msg[1]))
                 print()
 
