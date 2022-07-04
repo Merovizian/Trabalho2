@@ -119,14 +119,12 @@ def registro(emissor, receptor, mensagem):
     a = open(f'./{emissor}/{receptor}', 'a')
     horario = datetime.now().strftime("%H:%M:%S")
     a.writelines(f"{horario} {emissor}: {mensagem}\n")
-    print("A")
     a.close()
 
     # Faz as alterações no usuario receptor TAMBEM
     b = open(f'./{receptor}/{emissor}', 'a')
     b.writelines(f"{horario} {emissor}: {mensagem}\n")
     b.close()
-    print("B")
 
 
     '''
