@@ -14,13 +14,13 @@ def exibirHistorico(emissor,receptor):
         for a in lista:
             print(a)'''
         #receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
-
-    arquivotexto = open(f'./{emissor}/{receptor}', 'r')
-    texto = arquivotexto.read()
-    '''for line in texto:
-        print(line)'''
-
-    return texto
+    try:
+        arquivotexto = open(f'./{emissor}/{receptor}', 'r')
+        texto = arquivotexto.read()
+    except:
+        print(f"O contato {receptor} não esta cadastrado no sistema")
+    else:
+        return texto
 
 
 def arquivoExiste(receptor,emissor):
@@ -84,7 +84,6 @@ def registro(emissor, receptor, mensagem):
 
     # Cria a pasta do usuario, caso a pasta não exista
     Path(f'./{receptor}').mkdir(exist_ok=True)
-
     # Cria a pasta do usuario, caso a pasta não exista
     Path(f'./{emissor}').mkdir(exist_ok=True)
 
