@@ -126,6 +126,13 @@ def registro(emissor, receptor, mensagem):
     b.writelines(f"{horario} {emissor}: {mensagem}\n")
     b.close()
 
+def cadastro(emissor):
+    import os
+    # Cria a pasta do usuario, caso a pasta não exista
+    Path(f'./{emissor}').mkdir(exist_ok=True)
+
+
+
 '''
 def usuario(emissor):
     MENU DO USUARIO
@@ -148,11 +155,7 @@ def usuario(emissor):
             exibirHistorico(emissor)
             input("Aperte Enter para Sair...")
 
-def cadastro(emissor):
-    Cria um menu de interação
-    import os
-    # Cria a pasta do usuario, caso a pasta não exista
-    Path(f'./{emissor}').mkdir(exist_ok=True)
+
 
 while True:
     #Cria um menu de interação
