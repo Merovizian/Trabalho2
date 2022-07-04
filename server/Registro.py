@@ -3,22 +3,25 @@ from datetime import date, datetime
 from pathlib import Path
 import os
 
-def exibirHistorico(emissor):
+def exibirHistorico(emissor,receptor):
     '''Classe que exibe o historico do emissor e do receptor'''
-    lista = os.listdir(f'./Eric')
-    print("Contatos com historicos salvos na nuvem: ")
-    for a in lista:
-        print(a)
-    receptor = input("Informe o contato que queira mostar o historico: ")
-    while receptor not in lista:
+    #lista = os.listdir(f'./Eric')
+    #print("Contatos com historicos salvos na nuvem: ")
+    '''for a in lista:
+        print(a)'''
+    #receptor = input("Informe o contato que queira mostar o historico: ")
+    '''while receptor not in lista:
         for a in lista:
-            print(a)
-        receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
+            print(a)'''
+        #receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
 
     arquivotexto = open(f'./Eric/{receptor}', 'r')
-    texto = arquivotexto.read().split("\n")
-    for line in texto:
-        print(line)
+    texto = arquivotexto.read()
+    '''for line in texto:
+        print(line)'''
+
+    return texto
+
 
 def arquivoExiste(receptor,emissor):
     '''
