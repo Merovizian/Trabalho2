@@ -126,21 +126,9 @@ def registro(emissor, receptor, mensagem):
     b.writelines(f"{horario} {emissor}: {mensagem}\n")
     b.close()
 
-
-    '''
-    a = open(f'./{emissor}/{receptor}', 'a')
-    horario = datetime.now().strftime("%H:%M:%S")
-    time_atual = time()
-    a.writelines(f"{horario} {receptor}: {mensagem}\n")
-    a.close()
-
-    b = open(f'./{receptor}/{emissor}', 'a')
-    b.writelines(f"{horario} {receptor}: {mensagem}\n")
-    b.close()'''
-
-
+'''
 def usuario(emissor):
-    ''' MENU DO USUARIO'''
+    MENU DO USUARIO
     import os
     while True:
         print('\n' * 100)
@@ -161,13 +149,11 @@ def usuario(emissor):
             input("Aperte Enter para Sair...")
 
 def cadastro(emissor):
-    '''Cria um menu de interação'''
+    Cria um menu de interação
     import os
     # Cria a pasta do usuario, caso a pasta não exista
     Path(f'./{emissor}').mkdir(exist_ok=True)
 
-
-'''
 while True:
     #Cria um menu de interação
     print(f"\033[;1m{' MATERIC - TROCA DE MENSAGENS ' :*^40}\033[m")
