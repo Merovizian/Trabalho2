@@ -17,6 +17,8 @@ def exibirHistorico(emissor,receptor):
     try:
         arquivotexto = open(f'./{emissor}/{receptor}', 'r')
         texto = arquivotexto.read()
+        if texto == None:
+            texto = ''
     except:
         pass
     else:
