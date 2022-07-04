@@ -15,7 +15,7 @@ def exibirHistorico(emissor,receptor):
             print(a)'''
         #receptor = input("Contato não encontrado. Por favor escolha um dos nomes acima: ")
 
-    arquivotexto = open(f'./Eric/{receptor}', 'r')
+    arquivotexto = open(f'./{emissor}/{receptor}', 'r')
     texto = arquivotexto.read()
     '''for line in texto:
         print(line)'''
