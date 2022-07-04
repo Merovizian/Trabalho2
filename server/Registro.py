@@ -20,7 +20,7 @@ def exibirHistorico(emissor,receptor):
         if texto == None:
             texto = ''
     except:
-        texto = f"Usuario {receptor} Não esta cadastrado no sistema"
+        texto = ''
         return texto
     else:
         return texto
