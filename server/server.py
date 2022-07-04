@@ -8,8 +8,7 @@ import Registro
 
 
 def sign_up():
-
-    IP = '' 
+    IP = ''
     PORT = 20672
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -18,14 +17,14 @@ def sign_up():
 
     except socket.error as e:
         print(str(e) + "in sing in")
-    
+
     tcp.listen(1)
 
     while True:
         con, cliente = tcp.accept()
 
         config_file = "etc/user.json"
-        user_file = json.load(open(config_file,'r'))
+        user_file = json.load(open(config_file, 'r'))
 
         while True:
             msg = con.recv(1024)
@@ -43,25 +42,24 @@ def sign_up():
                     user_file[msg[0]] = msg[1]
 
                     with open("etc/user.json", "w") as out:
-                        out.write(json.dumps(user_file))        
-                    
+                        out.write(json.dumps(user_file))
+
                     print("Usuario {} se cadastrou".format(msg[0]))
                     Registro.cadastro(msg[0])
                     con.send(pickle.dumps("Usuario cadastrado"))
                     con.close()
                     break
-                      
+
                 else:
                     print("Usuario já cadastrado")
                     con.send(pickle.dumps("Usuario já cadastrado"))
                     con.close()
-                    break 
+                    break
             break
 
 
 def sign_in():
-
-    IP = '' 
+    IP = ''
     PORT = 5000
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -70,20 +68,20 @@ def sign_in():
 
     except socket.error as e:
         print("e")
-    
+
     tcp.listen(1)
 
     while True:
         cont = 0
         con, cliente = tcp.accept()
-        print ("cliente {} está tentando logar".format(cliente))
+        print("cliente {} está tentando logar".format(cliente))
         print("...")
 
         config_file = "etc/user.json"
-        user_file = json.load(open(config_file,'r'))
+        user_file = json.load(open(config_file, 'r'))
 
         config_file = "etc/connect.json"
-        connect_file = json.load(open(config_file,'r'))
+        connect_file = json.load(open(config_file, 'r'))
 
         while True:
             msg = con.recv(1024)
@@ -96,7 +94,7 @@ def sign_in():
             msg = pickle.loads(msg)
 
             for user, passwd in user_file.items():
-                cont +=1
+                cont += 1
 
                 if msg[0] == user and msg[1] == passwd:
                     print("{} realizou login!".format(msg[0]))
@@ -105,7 +103,7 @@ def sign_in():
 
                     with open("etc/connect.json", "w") as out:
                         out.write(json.dumps(connect_file))
-        
+
                     con.send(pickle.dumps("cliente online"))
                     con.close()
                     break
@@ -113,14 +111,13 @@ def sign_in():
                 elif cont == len(user_file.items()):
 
                     con.send(pickle.dumps(None))
-                    con.close() 
+                    con.close()
                     break
             break
 
 
 def sign_out():
-
-    IP = '' 
+    IP = ''
     PORT = 21672
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
@@ -129,13 +126,13 @@ def sign_out():
 
     except socket.error as e:
         print("e")
-    
+
     tcp.listen(1)
 
     while True:
         con, cliente = tcp.accept()
         config_file = "etc/connect.json"
-        connect_file = json.load(open(config_file,'r'))
+        connect_file = json.load(open(config_file, 'r'))
 
         while True:
             msg = con.recv(1024)
@@ -151,7 +148,7 @@ def sign_out():
                 del connect_file[msg]
                 with open("etc/connect.json", "w") as out:
                     out.write(json.dumps(connect_file))
-                
+
                 print("{} desconectou".format(msg))
                 con.send(pickle.dumps("Você foi desconectado"))
 
@@ -164,8 +161,40 @@ def sign_out():
                 break
 
 
-def broker():
+def historico():
+    IP = ''
+    PORT = 23672
+    tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
+    try:
+        tcp.bind((IP, PORT))
+
+    except socket.error as e:
+        print("e")
+
+    tcp.listen(1)
+
+    while True:
+        con, cliente = tcp.accept()
+
+        while True:
+            msg = con.recv(1024)
+
+            if not msg:
+                print('Finalizando conexao do cliente', cliente)
+                con.close()
+                break
+
+            msg = pickle.loads(msg)
+
+            historico = Registro.exibirHistorico(msg[0], msg[1])
+
+            con.send(pickle.dumps(historico))
+            con.close()
+            break
+
+
+def broker():
     tcp_broker = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     IP = ''
     PORT = 22672
@@ -180,9 +209,9 @@ def broker():
 
     while True:
         con, cliente = tcp_broker.accept()
-        
+
         config_file = "etc/connect.json"
-        connect_file = json.load(open(config_file,'r'))
+        connect_file = json.load(open(config_file, 'r'))
 
         while True:
             msg = con.recv(1024)
@@ -191,16 +220,16 @@ def broker():
                 print('Finalizando conexao do cliente', cliente)
                 con.close()
                 break
-               
+
             msg = pickle.loads(msg)
 
             try:
-                tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                tcp_client.connect((connect_file[msg[1]],23672))
-                tcp_client.send(pickle.dumps([msg[0],msg[2]]))
                 Registro.registro(msg[0], msg[1], msg[2])
+                tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+                tcp_client.connect((connect_file[msg[1]], 23672))
+                tcp_client.send(pickle.dumps([msg[0], msg[2]]))
 
-                print("mensagem de {} para {} foi enviada".format(msg[0],msg[1]))
+                print("mensagem de {} para {} foi enviada".format(msg[0], msg[1]))
                 print()
 
                 con.send(pickle.dumps("online"))
@@ -210,8 +239,8 @@ def broker():
 
             except:
                 con.send(pickle.dumps("offline"))
-                con.close() 
-                break  
+                con.close()
+                break
 
 
 if __name__ == '__main__':
@@ -220,11 +249,13 @@ if __name__ == '__main__':
     broker = Thread(target=broker)
     sign_up = Thread(target=sign_up)
     sign_out = Thread(target=sign_out)
+    historico = Thread(target=historico)
 
     login.start()
     broker.start()
     sign_up.start()
     sign_out.start()
+    historico.start()
 
     while threading.active_count() > 1:
         # pausa de 0.1 segundo,
@@ -232,6 +263,3 @@ if __name__ == '__main__':
         time.sleep(0.1)
 
     print("Programa encerrado")
-
-
-# V0

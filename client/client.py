@@ -4,6 +4,7 @@ import pickle
 from threading import Thread
 import threading
 import os
+import sys
 import json
 
 
@@ -153,9 +154,7 @@ def envia_mensagens(user,ip_server):
 
 if __name__ == '__main__':
 
-    config_file = "etc/ip_server.json"
-    ip_file = json.load(open(config_file,'r'))
-    ip_server = ip_file["ip_server"]
+    sys.argv[1]
 
     while True:
         action = input("Digite cadastrar ou login: ")
