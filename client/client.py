@@ -74,9 +74,9 @@ def sign_out(user,ip_server):
     tcp.close()
 
 
-def recebe_mensagens(ip_server):
+def recebe_mensagens():
 
-    ip = ip_server
+    ip = ''
     PORT_server = 23672
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     orig = (ip, PORT_server)
@@ -104,15 +104,28 @@ def envia_mensagens(user,ip_server):
 
     while True:
 
+        IP = ip_server
+        PORT = 23672
         contact = input("Usuario que deseja enviar mensagem: ")
 
+        tcp_historico = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+        try:
+            tcp_historico.connect((IP, PORT))
+            tcp_historico.send(pickle.dumps([user,contact]))
+            msg = pickle.loads(tcp_historico.recv(1024))
+
+            print(msg)
+
+        except:
+            print("erro")
+
         while True:
-            msg = input("Digite sua mensagem para {}: ".format(contact))
+            msg = input()
 
             if msg != "fim":
 
                 tcp_client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-                IP = ip_server
                 PORT = 22672
 
                 try:
@@ -170,7 +183,7 @@ if __name__ == '__main__':
                 os.system('cls||clear')
 
                 envia = Thread(target=envia_mensagens,args=(user,ip_server,))
-                recebe = Thread(target=recebe_mensagens, args=(ip_server,))
+                recebe = Thread(target=recebe_mensagens)
 
                 envia.start()
                 recebe.start()
