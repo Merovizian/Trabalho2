@@ -18,7 +18,8 @@ def exibirHistorico(emissor,receptor):
         arquivotexto = open(f'./{emissor}/{receptor}', 'r')
         texto = arquivotexto.read()
     except:
-        print(f"O contato {receptor} não esta cadastrado no sistema")
+        texto = f"O contato {receptor} não esta cadastrado no sistema"
+        return texto
     else:
         return texto
 
