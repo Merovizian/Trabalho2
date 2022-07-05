@@ -3,16 +3,30 @@ from pathlib import Path
 
 def exibirHistorico(emissor,receptor):
     '''Classe que exibe o historico do emissor e do receptor'''
+    contador = 0
+    contadorLinhas = 0
+    texto = list()
     try:
         arquivotexto = open(f'./{emissor}/{receptor}', 'r')
-        texto = arquivotexto.read()
-        if texto == None:
-            texto = ''
     except:
-        texto = ''
+        texto.append('')
         return texto
-    else:
-        return texto
+    #FAZ A CONTAGEM DE LINHAS.
+    texto = arquivotexto.read()
+    if texto == None:
+        texto.append('')
+    for line in arquivotexto:
+        contadorLinhas += 1
+    arquivotexto.close()
+
+    #COLOCA NA VARIAVEL O HISTORICO
+    arquivotexto = open(f'./{emissor}/{receptor}', 'r')
+    contadorLinhas = contadorLinhas - 8
+    for line in arquivotexto:
+        if (contador > contadorLinhas):
+            texto.append(line)
+        contador += 1
+    return texto
 
 def arquivoExiste(receptor,emissor):
     '''
