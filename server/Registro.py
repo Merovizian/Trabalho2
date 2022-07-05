@@ -18,6 +18,7 @@ def exibirHistorico(emissor,receptor):
     for line in arquivotexto:
         contadorLinhas += 1
     arquivotexto.close()
+    print(f"Existe {contadorLinhas} linhas neste contato")
 
     #COLOCA NA VARIAVEL O HISTORICO
     arquivotexto = open(f'./{emissor}/{receptor}', 'r')
@@ -26,6 +27,7 @@ def exibirHistorico(emissor,receptor):
         if (contador > contadorLinhas):
             texto.append(line)
         contador += 1
+    print(texto)
     return texto
 
 def arquivoExiste(receptor,emissor):
