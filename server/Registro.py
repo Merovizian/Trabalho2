@@ -10,6 +10,7 @@ def exibirHistorico(emissor,receptor):
         arquivotexto = open(f'./{emissor}/{receptor}', 'r')
     except:
         texto = ''
+        return texto
     else:
         arquivotexto.close()
 
