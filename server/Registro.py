@@ -11,11 +11,16 @@ def exibirHistorico(emissor,receptor):
     except:
         texto.append('')
         return texto
+    else:
+        arquivotexto.close()
+
+    arquivotexto = open(f'./{emissor}/{receptor}', 'r')
     #FAZ A CONTAGEM DE LINHAS.
     texto = arquivotexto.read()
     if texto == None:
         texto.append('')
     for line in arquivotexto:
+        print(f"aqui tem as linhas: {line}")
         contadorLinhas += 1
     arquivotexto.close()
     print(f"Existe {contadorLinhas} linhas neste contato")
