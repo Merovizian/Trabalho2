@@ -18,7 +18,7 @@ def exibirHistorico(emissor,receptor):
     #FAZ A CONTAGEM DE LINHAS.
     texto = arquivotexto.read()
     if texto == None:
-        texto.append('')
+        texto = ''
     for line in arquivotexto:
         print(f"aqui tem as linhas: {line}")
         contadorLinhas += 1
