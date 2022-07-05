@@ -19,11 +19,10 @@ def exibirHistorico(emissor,receptor):
     for line in arquivotexto:
         contadorLinhas += 1
     arquivotexto.close()
-    print(f"Existe {contadorLinhas} linhas neste contato")
 
     # COLOCA NA VARIAVEL O HISTORICO
     arquivotexto = open(f'./{emissor}/{receptor}', 'r')
-    contadorLinhas = contadorLinhas - 8
+    contadorLinhas = contadorLinhas - 20
     for line in arquivotexto:
         if (contador > contadorLinhas):
             texto = texto + line
