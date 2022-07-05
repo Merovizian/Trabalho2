@@ -21,7 +21,7 @@ O programa SocketC.py é o terceiro progradoisma, que receberá os resultados ob
 
 ### Máquinas virtuais
 
-Para funcionamento do modo de conexão automatica, é necessário que as máquinas virtuais sejam:
+Para funcionamento do modo de conexão automatica é necessário que as máquinas virtuais sejam:
 
 
 **g2-8** para SocketC.py
