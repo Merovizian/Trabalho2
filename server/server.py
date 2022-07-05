@@ -23,7 +23,7 @@ def sign_up():
     while True:
         con, cliente = tcp.accept()
 
-        config_file = "etc/user.json"
+        config_file = "etc/user/user.json"
         user_file = json.load(open(config_file, 'r'))
 
         while True:
@@ -41,7 +41,7 @@ def sign_up():
                 if msg[0] != user:
                     user_file[msg[0]] = msg[1]
 
-                    with open("etc/user.json", "w") as out:
+                    with open("etc/user/user.json", "w") as out:
                         out.write(json.dumps(user_file))
 
                     print("Usuario {} se cadastrou".format(msg[0]))
@@ -77,10 +77,10 @@ def sign_in():
         print("cliente {} está tentando logar".format(cliente))
         print("...")
 
-        config_file = "etc/user.json"
+        config_file = "etc/user/user.json"
         user_file = json.load(open(config_file, 'r'))
 
-        config_file = "etc/connect.json"
+        config_file = "etc/user/connect.json"
         connect_file = json.load(open(config_file, 'r'))
 
         while True:
@@ -101,7 +101,7 @@ def sign_in():
 
                     connect_file[user] = cliente[0]
 
-                    with open("etc/connect.json", "w") as out:
+                    with open("etc/user/connect.json", "w") as out:
                         out.write(json.dumps(connect_file))
 
                     con.send(pickle.dumps("cliente online"))
@@ -131,7 +131,7 @@ def sign_out():
 
     while True:
         con, cliente = tcp.accept()
-        config_file = "etc/connect.json"
+        config_file = "etc/user/connect.json"
         connect_file = json.load(open(config_file, 'r'))
 
         while True:
@@ -146,7 +146,7 @@ def sign_out():
 
             try:
                 del connect_file[msg]
-                with open("etc/connect.json", "w") as out:
+                with open("etc/user/connect.json", "w") as out:
                     out.write(json.dumps(connect_file))
 
                 print("{} desconectou".format(msg))
@@ -163,7 +163,7 @@ def sign_out():
 
 def historico():
     IP = ''
-    PORT = 23672
+    PORT = 24672
     tcp = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
     try:
@@ -210,7 +210,7 @@ def broker():
     while True:
         con, cliente = tcp_broker.accept()
 
-        config_file = "etc/connect.json"
+        config_file = "etc/user/connect.json"
         connect_file = json.load(open(config_file, 'r'))
 
         while True:
@@ -244,6 +244,9 @@ def broker():
 
 
 if __name__ == '__main__':
+
+    print("Servidor ONLINE")
+    print()
 
     login = Thread(target=sign_in)
     broker = Thread(target=broker)

@@ -60,10 +60,7 @@ def historico(receptor,emissor,data):
                 break
         else: localizacao = -1
     f.close()
-    for line in texto:
-        contador += 1
-        if (contador >= localizacao and localizacao != -1 ):
-            print(line)
+            
 
 def registro(emissor, receptor, mensagem):
     '''Faz o registro das conversas e os salva em disco.

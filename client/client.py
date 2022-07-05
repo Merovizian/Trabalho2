@@ -106,20 +106,16 @@ def envia_mensagens(user,ip_server):
     while True:
 
         IP = ip_server
-        PORT = 23672
+        PORT = 24672
         contact = input("Usuario que deseja enviar mensagem: ")
 
         tcp_historico = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
-        try:
-            tcp_historico.connect((IP, PORT))
-            tcp_historico.send(pickle.dumps([user,contact]))
-            msg = pickle.loads(tcp_historico.recv(1024))
+        tcp_historico.connect((IP, PORT))
+        tcp_historico.send(pickle.dumps([user,contact]))
+        msg = pickle.loads(tcp_historico.recv(1024))
 
-            print(msg)
-
-        except:
-            print("erro")
+        print(msg)
 
         while True:
             msg = input()
