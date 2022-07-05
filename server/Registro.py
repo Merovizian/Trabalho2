@@ -22,7 +22,7 @@ def exibirHistorico(emissor,receptor):
 
     # COLOCA NA VARIAVEL O HISTORICO
     arquivotexto = open(f'./{emissor}/{receptor}', 'r')
-    contadorLinhas = contadorLinhas - 999
+    contadorLinhas = contadorLinhas - 10
     for line in arquivotexto:
         if (contador > contadorLinhas):
             texto = texto + line
