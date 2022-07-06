@@ -1,5 +1,5 @@
 # TRABALHO 1  - Laboratório de Redes
-por Eric Giobini, Mateus Sobrimho
+por Eric Giobini, Mateus Sobrinho
 
 ## O que é?
 
