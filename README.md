@@ -1,5 +1,5 @@
 # TRABALHO 2  - Laboratório de Redes
-## Aplicação de trocas de mensagens em Python
+### Aplicação de trocas de mensagens em Python
 por Eric Giobini, Mateus Sobrinho
 
 ## O que é?
